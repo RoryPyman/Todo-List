@@ -30,9 +30,6 @@ function TodoList() {
     setImportance('low')
     setText('');
     }
-    function handleImportanceChange(e) {
-        setImportance(e.target.value);
-    }
    function deleteTask(id) {
     setTasks(tasks.filter(task => task.id !== id));
     }
@@ -53,7 +50,6 @@ function TodoList() {
     task={task}
     deleteTask={deleteTask}
     toggleCompleted={toggleCompleted} 
-    importance={importance}
     />
     ))}
    <input
@@ -66,7 +62,7 @@ function TodoList() {
             type="radio"
             value="low"
             checked={importance === 'low'}
-            onChange={handleImportanceChange}
+            onChange={e => setImportance(e.target.value)}
         />
         Low
     </label>
@@ -75,7 +71,7 @@ function TodoList() {
             type="radio"
             value="med"
             checked={importance === 'med'}
-            onChange={handleImportanceChange}
+            onChange={e => setImportance(e.target.value)}
         />
         Medium
     </label>
@@ -84,7 +80,7 @@ function TodoList() {
             type="radio"
             value="high"
             checked={importance === 'high'}
-            onChange={handleImportanceChange}
+            onChange={e => setImportance(e.target.value)}
         />
         High
     </label>

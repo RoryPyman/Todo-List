@@ -1,5 +1,5 @@
 import React from 'react';
-function TodoItem({ task, deleteTask, toggleCompleted, importance }) {
+function TodoItem({ task, deleteTask, toggleCompleted}) {
     function handleChange() {
     toggleCompleted(task.id);
     }
@@ -12,7 +12,7 @@ function TodoItem({ task, deleteTask, toggleCompleted, importance }) {
                 checked={task.completed}
                 onChange={handleChange}
             />
-            <p className='importance'>Importance: {importance}</p>
+            <p className='importance'>Importance: {task.importance}</p>
             <button onClick={() => deleteTask(task.id)}> Delete Task </button>
         </div>
     );
