@@ -24,7 +24,7 @@ function TodoList() {
         const [importance, setImportance] = useState('low')
 
    
-    function addTask(text, importance) {
+    function addTask(importance) {
         const newTask = {
             id: Date.now(),
             name: text,
@@ -102,8 +102,8 @@ function TodoList() {
     </div>  
 
 
-   <button onClick={() => addTask(text, importance)}>Add</button>
-   <button onClick={() => save(tasks)}> Save</button>
+   <button onClick={() => addTask(importance)}>Add</button>
+   <button onClick={() => save(tasks, document.querySelector('.username-field').value)}> Save</button>
    <input type='text' className='username-field'></input>
    <button onClick={() => handleLoad(document.querySelector('.username-field').value)}> Load </button>
     </div>
