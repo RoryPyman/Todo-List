@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import TodoItem from '../ToDoItem/index.jsx';
 import save from '../../backend/save.js';
 import load from '../../backend/load.js';
+import './index.css';
 
 const TodoList = () => {
     const location = useLocation();
@@ -11,16 +12,20 @@ const TodoList = () => {
     const [importance, setImportance] = useState('low');
     const [user, setUser] = useState('');
 
-    // Load tasks on component mount and when the user changes
     useEffect(() => {
-        const queryParams = new URLSearchParams(location.search);
-        const username = queryParams.get('user');
-        setUser(username); // Store the username in state
-        
+        const username = location.state?.user || '';
+        setUser(username);
+
         if (username) {
-            load(username).then(arr => setTasks(arr));
+            try {
+                load(username)
+                .then(arr => setTasks(arr))
+                .catch(e => console.log(e.message));
+            } catch (error) {
+                console.error('Error loading tasks:', error);
+            }
         }
-    }, [location.search]);
+    }, [location.state]); // Dependency on location.state
 
     const addTask = (importance) => {
         const newTask = {
@@ -29,19 +34,20 @@ const TodoList = () => {
             completed: false,
             importance: importance
         };
+        console.log(tasks)
         setTasks([...tasks, newTask]);
         setImportance('low');
         setText('');
     };
 
     const deleteTask = (id) => {
-        setTasks(tasks.filter(task => task.id !== id));
+        setTasks(tasks => tasks.filter(task => task.id !== id));
     };
 
     const toggleCompleted = (id) => {
-        setTasks(tasks.map(task => 
+        setTasks(tasks => tasks.map(task => 
             task.id === id ? { ...task, completed: !task.completed } : task
-        ));
+        )); // Functional update
     };
 
     const handleSave = () => {
@@ -52,14 +58,18 @@ const TodoList = () => {
 
     return (
         <div className="todo-list">
-            {tasks.map(task => (
-                <TodoItem
-                    key={task.id}
-                    task={task}
-                    deleteTask={deleteTask}
-                    toggleCompleted={toggleCompleted}
-                />
-            ))}
+            {tasks.length > 0 ? (
+                tasks.map(task => (
+                    <TodoItem
+                        key={task.id}
+                        task={task}
+                        deleteTask={deleteTask}
+                        toggleCompleted={toggleCompleted}
+                    />
+                ))
+            ) : (
+                <p>No tasks available</p>
+            )}
             <input
                 value={text}
                 onChange={e => setText(e.target.value)}
@@ -95,7 +105,7 @@ const TodoList = () => {
                 </label>
             </div>
             <button onClick={() => addTask(importance)}>Add</button>
-            <button onClick={handleSave}>Save</button> {/* Added label to button */}
+            <button onClick={handleSave}>Save</button>
         </div>
     );
 };
