@@ -15,7 +15,7 @@ const Login = () => {
         if (!isValid) {
             alert('Username and password do not match, please try again.');
         } else {
-            navigate('/list?user='+user); // Navigate to the route
+            navigate('/list', {state: {user}}); // Navigate to the route
         }
     };
 
