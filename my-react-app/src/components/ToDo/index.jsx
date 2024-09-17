@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import TodoItem from '../ToDoItem';
+import { getDatabase, ref, set, push } from 'firebase/database'
+
+import cong from '../../../public/configuration.jsx';
 
 function TodoList() {
+    // initial vals
     const [tasks, setTasks] = useState([
         {
         id: 1,
@@ -19,29 +23,45 @@ function TodoList() {
         
         const [text, setText] = useState('');
         const [importance, setImportance] = useState('low')
-   function addTask(text, importance) {
-    const newTask = {
-    id: Date.now(),
-    text,
-    completed: false,
-    importance: importance
-    };
-    setTasks([...tasks, newTask]);
-    setImportance('low')
-    setText('');
+
+   
+    function addTask(text, importance) {
+        const newTask = {
+        id: Date.now(),
+        text,
+        completed: false,
+        importance: importance
+        };
+        setTasks([...tasks, newTask]);
+        //add to database
+
+        const db = getDatabase(cong)
+        const dbpushref = push(ref(db, ('Users/RoryPyman/Tasks/' + Date.now())))
+        set(dbpushref, {
+            name: text,
+            completed: false,
+            importance: importance
+        }).catch((e) => {
+            console.log("Error:", e.message)
+        })
+        setImportance('low')
+        setText('');
     }
-   function deleteTask(id) {
-    setTasks(tasks.filter(task => task.id !== id));
+
+    function deleteTask(id) {
+        setTasks(tasks.filter(task => task.id !== id));
+}
+
+    function toggleCompleted(id) {
+        setTasks(tasks.map(task => {
+        if (task.id === id) {
+        return {...task, completed: !task.completed};
+        } else {
+        return task;
+        } 
+        }));
     }
-   function toggleCompleted(id) {
-    setTasks(tasks.map(task => {
-    if (task.id === id) {
-    return {...task, completed: !task.completed};
-    } else {
-    return task;
-    } 
-    }));
-    }
+
    return (
     <div className="todo-list">
     {tasks.map(task => (
