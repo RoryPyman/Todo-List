@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import TodoItem from '../ToDoItem';
+import TodoItem from '../ToDoItem/index.jsx';
 import save from '../../backend/save.js'
 import load from '../../backend/load.js'
 
@@ -103,9 +103,6 @@ function TodoList() {
 
 
    <button onClick={() => addTask(importance)}>Add</button>
-   <button onClick={() => save(tasks, document.querySelector('.username-field').value)}> Save</button>
-   <input type='text' className='username-field'></input>
-   <button onClick={() => handleLoad(document.querySelector('.username-field').value)}> Load </button>
     </div>
     );
    }
