@@ -1,0 +1,31 @@
+.todo-item {
+    display: block;
+    border-radius: 10px;
+    border-color: #e3e3e3;
+    border-width: 10px;
+    padding: 20px;
+    width: 20%;
+    height: 20%;
+    background-color: #f95959;
+    color: white;
+    margin: 8px;
+
+}
+
+.checkboxlabel {
+    display: block;
+    width: fit-content;
+    padding: 8px;
+    background-color: #455d7a ;
+    color: white;
+    border-radius: 2px;
+    border-color: #e3e3e3;
+    border-width: 5px;
+    margin-bottom: 4px;
+}
+
+.checkboxlabel:hover {
+    background-color: #233142;
+    font-size: 17px;
+
+}
