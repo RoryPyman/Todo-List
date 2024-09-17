@@ -1,30 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import TodoItem from '../ToDoItem/index.jsx';
-import save from '../../backend/save.js'
-import load from '../../backend/load.js'
+import save from '../../backend/save.js';
+import load from '../../backend/load.js';
 
-function TodoList() {
-    // initial vals
-    const [tasks, setTasks] = useState([
-        {
-        id: 1,
-        name: 'Go to Gym',
-        completed: true,
-        importance: 'low'
-        },
-        {
-        id: 2,
-        name: 'Meet with Jack',
-        completed: false,
-        importance: 'high'
-        }
-        ]);
+const TodoList = () => {
+    const location = useLocation();
+    const [tasks, setTasks] = useState([]);
+    const [text, setText] = useState('');
+    const [importance, setImportance] = useState('low');
+    const [user, setUser] = useState('');
+
+    // Load tasks on component mount and when the user changes
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const username = queryParams.get('user');
+        setUser(username); // Store the username in state
         
-        const [text, setText] = useState('');
-        const [importance, setImportance] = useState('low')
+        if (username) {
+            load(username).then(arr => setTasks(arr));
+        }
+    }, [location.search]);
 
-   
-    function addTask(importance) {
+    const addTask = (importance) => {
         const newTask = {
             id: Date.now(),
             name: text,
@@ -32,78 +30,74 @@ function TodoList() {
             importance: importance
         };
         setTasks([...tasks, newTask]);
-        setImportance('low')
+        setImportance('low');
         setText('');
-        
-    }
+    };
 
-    function deleteTask(id) {
+    const deleteTask = (id) => {
         setTasks(tasks.filter(task => task.id !== id));
-}
+    };
 
-    function toggleCompleted(id) {
-        setTasks(tasks.map(task => {
-        if (task.id === id) {
-        return {...task, completed: !task.completed};
-        } else {
-        return task;
-        } 
-        }));
-    }
+    const toggleCompleted = (id) => {
+        setTasks(tasks.map(task => 
+            task.id === id ? { ...task, completed: !task.completed } : task
+        ));
+    };
 
-    async function handleLoad(username) {
-        const arr = await load(username)
-        console.log(arr)
-        setTasks(arr)
-    }
+    const handleSave = () => {
+        if (user) {
+            save(tasks, user);
+        }
+    };
 
-   return (
-    <div className="todo-list">
-    {tasks.map(task => (
-    <TodoItem
-    key={task.id} 
-    task={task}
-    deleteTask={deleteTask}
-    toggleCompleted={toggleCompleted} 
-    />
-    ))}
-   <input
-    value={text}
-    onChange={e => setText(e.target.value)} 
-    /> Text
-    <div className="radioinput">
-    <label>
-        <input
-            type="radio"
-            value="low"
-            checked={importance === 'low'}
-            onChange={e => setImportance(e.target.value)}
-        />
-        Low
-    </label>
-    <label>
-        <input
-            type="radio"
-            value="med"
-            checked={importance === 'med'}
-            onChange={e => setImportance(e.target.value)}
-        />
-        Medium
-    </label>
-    <label>
-        <input
-            type="radio"
-            value="high"
-            checked={importance === 'high'}
-            onChange={e => setImportance(e.target.value)}
-        />
-        High
-    </label>
-    </div>  
-
-
-   <button onClick={() => addTask(importance)}>Add</button>
-    </div>
+    return (
+        <div className="todo-list">
+            {tasks.map(task => (
+                <TodoItem
+                    key={task.id}
+                    task={task}
+                    deleteTask={deleteTask}
+                    toggleCompleted={toggleCompleted}
+                />
+            ))}
+            <input
+                value={text}
+                onChange={e => setText(e.target.value)}
+                placeholder="Enter task text"
+            />
+            <div className="radioinput">
+                <label>
+                    <input
+                        type="radio"
+                        value="low"
+                        checked={importance === 'low'}
+                        onChange={e => setImportance(e.target.value)}
+                    />
+                    Low
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        value="med"
+                        checked={importance === 'med'}
+                        onChange={e => setImportance(e.target.value)}
+                    />
+                    Medium
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        value="high"
+                        checked={importance === 'high'}
+                        onChange={e => setImportance(e.target.value)}
+                    />
+                    High
+                </label>
+            </div>
+            <button onClick={() => addTask(importance)}>Add</button>
+            <button onClick={handleSave}>Save</button> {/* Added label to button */}
+        </div>
     );
-   }
-   export default TodoList;
+};
+
+export default TodoList;
