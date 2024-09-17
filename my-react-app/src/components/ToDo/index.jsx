@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import TodoItem from '../ToDoItem';
+import save from '../../backend/save.js'
+import load from '../../backend/load.js'
 
 function TodoList() {
+    // initial vals
     const [tasks, setTasks] = useState([
         {
         id: 1,
-        text: 'Go to Gym',
+        name: 'Go to Gym',
         completed: true,
         importance: 'low'
         },
         {
         id: 2,
-        text: 'Meet with Jack',
+        name: 'Meet with Jack',
         completed: false,
         importance: 'high'
         }
@@ -19,29 +22,41 @@ function TodoList() {
         
         const [text, setText] = useState('');
         const [importance, setImportance] = useState('low')
-   function addTask(text, importance) {
-    const newTask = {
-    id: Date.now(),
-    text,
-    completed: false,
-    importance: importance
-    };
-    setTasks([...tasks, newTask]);
-    setImportance('low')
-    setText('');
+
+   
+    function addTask(importance) {
+        const newTask = {
+            id: Date.now(),
+            name: text,
+            completed: false,
+            importance: importance
+        };
+        setTasks([...tasks, newTask]);
+        setImportance('low')
+        setText('');
+        
     }
-   function deleteTask(id) {
-    setTasks(tasks.filter(task => task.id !== id));
+
+    function deleteTask(id) {
+        setTasks(tasks.filter(task => task.id !== id));
+}
+
+    function toggleCompleted(id) {
+        setTasks(tasks.map(task => {
+        if (task.id === id) {
+        return {...task, completed: !task.completed};
+        } else {
+        return task;
+        } 
+        }));
     }
-   function toggleCompleted(id) {
-    setTasks(tasks.map(task => {
-    if (task.id === id) {
-    return {...task, completed: !task.completed};
-    } else {
-    return task;
-    } 
-    }));
+
+    async function handleLoad(username) {
+        const arr = await load(username)
+        console.log(arr)
+        setTasks(arr)
     }
+
    return (
     <div className="todo-list">
     {tasks.map(task => (
@@ -87,7 +102,10 @@ function TodoList() {
     </div>  
 
 
-   <button onClick={() => addTask(text, importance)}>Add</button>
+   <button onClick={() => addTask(importance)}>Add</button>
+   <button onClick={() => save(tasks, document.querySelector('.username-field').value)}> Save</button>
+   <input type='text' className='username-field'></input>
+   <button onClick={() => handleLoad(document.querySelector('.username-field').value)}> Load </button>
     </div>
     );
    }
