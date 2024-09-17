@@ -70,7 +70,7 @@ const TodoList = () => {
             ) : (
                 <p>No tasks available</p>
             )}
-            <input
+            <input className='textinput'
                 value={text}
                 onChange={e => setText(e.target.value)}
                 placeholder="Enter task text"

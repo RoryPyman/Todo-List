@@ -6,7 +6,7 @@ function TodoItem({ task, deleteTask, toggleCompleted}) {
     }
     
     return (
-        <div className="todo-item">
+        <div className={`todo-item ${task.completed ? 'completed' : ''}`}>
             <p>{task.name}</p>
             <p className='importance'>Importance: {task.importance}</p>
             <div className='checkboxlabel'> Completed 
