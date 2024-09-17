@@ -7,7 +7,7 @@ function TodoItem({ task, deleteTask, toggleCompleted}) {
     
     return (
         <div className="todo-item">
-            <p>{task.text}</p>
+            <p>{task.name}</p>
             <p className='importance'>Importance: {task.importance}</p>
             <div className='checkboxlabel'> Completed 
                 <input 

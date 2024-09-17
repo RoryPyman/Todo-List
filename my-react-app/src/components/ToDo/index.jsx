@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import TodoItem from '../ToDoItem';
-import { getDatabase, ref, set, push } from 'firebase/database'
-
-import cong from '../../../public/configuration.jsx';
+import save from '../../backend/save.js'
+import load from '../../backend/load.js'
 
 function TodoList() {
     // initial vals
     const [tasks, setTasks] = useState([
         {
         id: 1,
-        text: 'Go to Gym',
+        name: 'Go to Gym',
         completed: true,
         importance: 'low'
         },
         {
         id: 2,
-        text: 'Meet with Jack',
+        name: 'Meet with Jack',
         completed: false,
         importance: 'high'
         }
@@ -27,25 +26,15 @@ function TodoList() {
    
     function addTask(text, importance) {
         const newTask = {
-        id: Date.now(),
-        text,
-        completed: false,
-        importance: importance
-        };
-        setTasks([...tasks, newTask]);
-        //add to database
-
-        const db = getDatabase(cong)
-        const dbpushref = push(ref(db, ('Users/RoryPyman/Tasks/' + Date.now())))
-        set(dbpushref, {
+            id: Date.now(),
             name: text,
             completed: false,
             importance: importance
-        }).catch((e) => {
-            console.log("Error:", e.message)
-        })
+        };
+        setTasks([...tasks, newTask]);
         setImportance('low')
         setText('');
+        
     }
 
     function deleteTask(id) {
@@ -60,6 +49,12 @@ function TodoList() {
         return task;
         } 
         }));
+    }
+
+    async function handleLoad(username) {
+        const arr = await load(username)
+        console.log(arr)
+        setTasks(arr)
     }
 
    return (
@@ -108,6 +103,9 @@ function TodoList() {
 
 
    <button onClick={() => addTask(text, importance)}>Add</button>
+   <button onClick={() => save(tasks)}> Save</button>
+   <input type='text' className='username-field'></input>
+   <button onClick={() => handleLoad(document.querySelector('.username-field').value)}> Load </button>
     </div>
     );
    }
