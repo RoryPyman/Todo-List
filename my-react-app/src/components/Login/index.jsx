@@ -20,7 +20,7 @@ const Login = () => {
     };
 
     return (
-        <div>
+        <div className='login-container'>
             <label>Username:</label>
             <input
                 type='text'

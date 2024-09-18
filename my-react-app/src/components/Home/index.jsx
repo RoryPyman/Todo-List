@@ -7,7 +7,11 @@ const Home = (props) => {
   return (
     <div className="mainContainer">
       <div className={'titleContainer'}>
-        <div>Welcome!</div>
+        <div className="welcomeTitle">Welcome to ToDoList!</div>
+        <div className="welcomeSubtitle">Your go-to app for staying organized</div>
+        <div className="welcomeDescription">
+          Manage your tasks effortlessly. Add, track, and complete your to-do items with ease.
+        </div>
       </div>
       <div className={'buttonContainer'}>
         <Link

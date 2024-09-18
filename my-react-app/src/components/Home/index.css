@@ -1,60 +1,88 @@
-/* General container styles */
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
-    background-color: #000; /* Black background for the whole page */
-    color: #fff; /* White text color */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f4f4f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.mainContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  width: 1000px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeInUp 1s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
   }
-  
-  .mainContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 90px; /* Tripled padding */
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .titleContainer {
-    margin-bottom: 90px; /* Tripled margin */
-    font-size: 108px; /* Tripled font size */
-    font-weight: bold;
-    color: #fff; /* White color */
-  }
-  
-  .registertext {
-    margin-top: 90px; /* Tripled margin */
-    font-size: 18px;
-  }
-  
-  .inputButton {
-    display: inline-block;
-    padding: 45px 90px; /* Increased padding by 1.5 times */
-    font-size: 36px; /* Increased font size by 1.5 times */
-    font-weight: bold;
-    color: #000; /* Black text color */
-    background-color: #fff; /* White background */
-    border: 3px solid #000; /* Slightly thicker border */
-    border-radius: 9px; /* Slightly larger border radius */
-    text-decoration: none;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
-  }
-  
-  .inputButton:hover {
-    background-color: #f8f9fa; /* Slightly grayish background on hover */
-    color: #000; /* Black text color on hover */
-    border-color: #000; /* Black border on hover */
-  }
-  
-  .inputButton:active {
-    background-color: #e2e6e8; /* Darker gray background on click */
-    color: #000; /* Black text color on click */
-    border-color: #000; /* Black border on click */
-  }
-  
-  .inputButton:focus {
-    outline: none;
-  }
+}
+
+.welcomeTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+  animation: fadeInUp 1.2s ease-out forwards;
+}
+
+.welcomeSubtitle {
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #666;
+  margin-bottom: 20px;
+  animation: fadeInUp 1.4s ease-out forwards;
+}
+
+.welcomeDescription {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 30px;
+  animation: fadeInUp 1.6s ease-out forwards;
+}
+
+.buttonContainer {
+  margin: 20px 0;
+}
+
+.inputButton {
+  display: inline-block;
+  background-color: #5c67f2;
+  color: white;
+  padding: 10px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.inputButton:hover {
+  background-color: #4e58d9;
+}
+
+.registertext {
+  font-size: 1rem;
+  color: #777;
+  margin-top: 15px;
+  font-weight: 400;
+}
   
