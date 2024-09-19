@@ -1,13 +1,13 @@
 import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBjUM4tctPeTSBS5NLVQ3QVl5zWxN5spBk",
-  authDomain: "todo-list-b288f.firebaseapp.com",
-  databaseURL: "https://todo-list-b288f-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "todo-list-b288f",
-  storageBucket: "todo-list-b288f.appspot.com",
-  messagingSenderId: "837756736896",
-  appId: "1:837756736896:web:7bf75b1c7b6045da9ddd65"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  databaseURL: import.meta.env.VITE_FIREBASE_DATABASE_URL,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
 // Initialize Firebase
