@@ -1,5 +1,5 @@
 # A Simple To-Do App
-
+A full stack todo list, hosted [here](https://todolist-rpjf.netlify.app/) using Netlify.
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
