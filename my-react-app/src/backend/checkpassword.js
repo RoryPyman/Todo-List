@@ -6,10 +6,9 @@ const checkpassword = async (user, password) => {
     const db = getDatabase(cong)
     let dbgetref = ref(db, 'Users/'+user)
     const snapshot = await get(dbgetref)
-    console.log(user, password)
     if (snapshot.exists()) {
-        const arr = snapshot.val()
-        return arr.Password == password
+        const arr = Object.values(snapshot.val())
+        return arr[0].Password == password
     }
     return false
 }

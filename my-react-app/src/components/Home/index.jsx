@@ -20,6 +20,12 @@ const Home = (props) => {
           Login </Link>
       </div>
       <div className='registertext'>Or if you are new, register below</div>
+      <div className={'buttonContainer'}>
+        <Link
+          className={'inputButton'}
+          to={'/register'}>
+          Register </Link>
+      </div>
     </div>
   )
 }

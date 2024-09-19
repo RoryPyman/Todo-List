@@ -17,13 +17,9 @@ const TodoList = () => {
         setUser(username);
 
         if (username) {
-            try {
-                load(username)
-                .then(arr => setTasks(arr))
-                .catch(e => console.log(e.message));
-            } catch (error) {
-                console.error('Error loading tasks:', error);
-            }
+            load(username)
+            .then(arr => setTasks(arr))
+            .catch(e => console.error(e.message));
         }
     }, [location.state]); // Dependency on location.state
 
@@ -34,7 +30,6 @@ const TodoList = () => {
             completed: false,
             importance: importance
         };
-        console.log(tasks)
         setTasks([...tasks, newTask]);
         setImportance('low');
         setText('');

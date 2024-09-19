@@ -19,7 +19,6 @@ const save = async (tasks, username) => {
         }).catch((e) => {
             console.log("Error:", e.message)
         })
-        console.log(task)
     });
 }
 
