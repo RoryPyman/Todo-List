@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import TodoItem from '../ToDoItem/index.jsx';
 import save from '../../backend/save.js';
 import load from '../../backend/load.js';
 import './index.css';
 
 const TodoList = () => {
+    const navigate = useNavigate();
     const location = useLocation();
     const [tasks, setTasks] = useState([]);
     const [text, setText] = useState('');
@@ -50,6 +51,11 @@ const TodoList = () => {
             save(tasks, user);
         }
     };
+
+    const handleExit = () => {
+        setUser('')
+        navigate('/')
+    }
 
     return (
         <div className="todo-list">
@@ -101,6 +107,7 @@ const TodoList = () => {
             </div>
             <button onClick={() => addTask(importance)}>Add</button>
             <button onClick={handleSave}>Save</button>
+            <button onClick={handleExit}>Exit without saving</button>
         </div>
     );
 };
