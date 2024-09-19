@@ -57,6 +57,11 @@ const TodoList = () => {
         navigate('/')
     }
 
+    const handleSaveExit = () => {
+        handleSave()
+        handleExit()
+    }
+
     return (
         <div className="todo-list">
             {tasks.length > 0 ? (
@@ -107,7 +112,8 @@ const TodoList = () => {
             </div>
             <button onClick={() => addTask(importance)}>Add</button>
             <button onClick={handleSave}>Save</button>
-            <button onClick={handleExit}>Exit without saving</button>
+            <button onClick={handleExit}>Exit</button>
+            <button onClick={handleSaveExit}>Save and Exit</button>
         </div>
     );
 };
