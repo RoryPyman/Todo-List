@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import TodoItem from '../ToDoItem/index.jsx';
-import save from '../../backend/save.js';
 import load from '../../backend/load.js';
+import NavBar from './NavBar/index.jsx';
 import './index.css';
 
 const TodoList = () => {
@@ -46,82 +46,61 @@ const TodoList = () => {
         )); // Functional update
     };
 
-    const handleSave = () => {
-        if (user) {
-            save(tasks, user);
-        }
-    };
-
-    const handleExit = () => {
-        setUser('')
-        navigate('/')
-    }
-
-    const handleSaveExit = () => {
-        handleSave()
-        handleExit()
-    }
-
     return (
-        <div className="todo-container">
-            <div className="todo-form">
-                <h2 className='add-form-heading'>Add an item to your list</h2>
-                <input
-                    className='text-input'
-                    value={text}
-                    onChange={e => setText(e.target.value)}
-                    placeholder="Enter task text"
-                />
-                <div className="radio-input">
-                    <label>
-                        <input
-                            type="radio"
-                            value="low"
-                            checked={importance === 'low'}
-                            onChange={e => setImportance(e.target.value)}
-                        />
-                        Low
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="med"
-                            checked={importance === 'med'}
-                            onChange={e => setImportance(e.target.value)}
-                        />
-                        Medium
-                    </label>
-                    <label>
-                        <input
-                            type="radio"
-                            value="high"
-                            checked={importance === 'high'}
-                            onChange={e => setImportance(e.target.value)}
-                        />
-                        High
-                    </label>
-                </div>
-                <button onClick={() => addTask(importance)}>Add</button>
+        <div className="todo-list">
+            <NavBar 
+            user={user} 
+            tasks={tasks} 
+            setUser={setUser} 
+            setTasks={setTasks} 
+            navigate={navigate}/>
+            {tasks.length > 0 ? (
+                tasks.map(task => (
+                    <TodoItem
+                        key={task.id}
+                        task={task}
+                        deleteTask={deleteTask}
+                        toggleCompleted={toggleCompleted}
+                    />
+                ))
+            ) : (
+                <p>No tasks available</p>
+            )}
+            <input className='textinput'
+                value={text}
+                onChange={e => setText(e.target.value)}
+                placeholder="Enter task text"
+            />
+            <div className="radioinput">
+                <label>
+                    <input
+                        type="radio"
+                        value="low"
+                        checked={importance === 'low'}
+                        onChange={e => setImportance(e.target.value)}
+                    />
+                    Low
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        value="med"
+                        checked={importance === 'med'}
+                        onChange={e => setImportance(e.target.value)}
+                    />
+                    Medium
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        value="high"
+                        checked={importance === 'high'}
+                        onChange={e => setImportance(e.target.value)}
+                    />
+                    High
+                </label>
             </div>
-            <div className="todo-actions">
-                <button onClick={handleSave}>Save</button>
-                <button onClick={handleExit}>Exit</button>
-                <button onClick={handleSaveExit}>Save and Exit</button>
-            </div>
-            <div className="todo-items-grid">
-                {tasks.length > 0 ? (
-                    tasks.map(task => (
-                        <TodoItem
-                            key={task.id}
-                            task={task}
-                            deleteTask={deleteTask}
-                            toggleCompleted={toggleCompleted}
-                        />
-                    ))
-                ) : (
-                    <p>No tasks available</p>
-                )}
-            </div>
+            <button className='todo-button' onClick={() => addTask(importance)}>Add</button>
         </div>
     );
 };
