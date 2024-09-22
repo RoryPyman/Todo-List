@@ -67,7 +67,7 @@
 }
 
 /* Submit button for adding a task */
-button {
+.todo-form button {
   padding: 12px;
   font-size: 1rem;
   font-weight: bold;
@@ -78,6 +78,8 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 50%; /* Adjust width to a percentage */
+  align-self: center; /* Center the button within the form */
 }
 
 button:hover {
