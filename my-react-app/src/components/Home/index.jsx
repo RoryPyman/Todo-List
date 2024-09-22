@@ -26,6 +26,7 @@ const Home = (props) => {
           to={'/register'}>
           Register </Link>
       </div>
+      <div className='registertext'>If you dont want to register you can use as a guest <Link to="/list">here </Link> </div>
     </div>
   )
 }
