@@ -5,7 +5,7 @@ import { FaBars, FaTimes } from 'react-icons/fa'
 import Sort from './sort.jsx';
 
 
-const NavBar = ({ user, tasks, setUser, navigate }) => {  
+const NavBar = ({ user, tasks, setUser, setTasks, navigate }) => {  
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -38,7 +38,9 @@ const NavBar = ({ user, tasks, setUser, navigate }) => {
                 <li><button className='todo-button' onClick={handleSave}>Save</button></li>
                 <li><button className='todo-button' onClick={handleExit}>Exit</button></li>
                 <li><button className='todo-button' onClick={handleSaveExit}>Save and Exit</button></li>
-                <Sort />
+                <Sort 
+                tasks={tasks}
+                setTasks={setTasks}/>
               </ul>
             </div>
           )}

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./index.css"
 
-const Sort = () => {
+const Sort = ({ tasks, setTasks }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -9,8 +9,23 @@ const Sort = () => {
     }
 
     const sortTasks = (order) => {
-      setIsOpen(false)
-    }
+      const importanceOrder = { 'low': 1, 'med': 2, 'high': 3 };
+      let sortedTasks;
+  
+      if (order === 'importance') {
+          sortedTasks = [...tasks].sort((a, b) => {
+            console.log(importanceOrder[a.importance])
+              return importanceOrder[a.importance] - importanceOrder[b.importance];
+          });
+      } else if (order === 'date') {
+          sortedTasks = [...tasks].sort((a, b) => {
+              return new Date(a.date) - new Date(b.date); // Adjust according to your date format
+          });
+      }
+  
+      setTasks(sortedTasks);
+      setIsOpen(false);
+  }
 
     return (
     <div>
