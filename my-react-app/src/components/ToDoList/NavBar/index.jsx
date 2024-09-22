@@ -30,6 +30,9 @@ const NavBar = ({ user, tasks, setUser, setTasks, navigate }) => {
     const handleRegister = () => {
         navigate('/register')
     }
+    const clearAll = () => {
+        setTasks([])        
+    }
 
     return (
         <div className='navbar'>
@@ -41,6 +44,7 @@ const NavBar = ({ user, tasks, setUser, setTasks, navigate }) => {
           {isOpen && (
             <div className="menu">
               <ul>
+                <li><button className='todo-button' onClick={clearAll}>Clear Tasks</button></li>
                 {user && <div>
                     <li><button className='todo-button' onClick={handleSave}>Save</button></li>
                 <li><button className='todo-button' onClick={handleSaveExit}>Save and Exit</button></li></div>
