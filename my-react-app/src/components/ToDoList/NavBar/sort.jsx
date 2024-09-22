@@ -19,7 +19,7 @@ const Sort = ({ tasks, setTasks }) => {
           });
       } else if (order === 'date') {
           sortedTasks = [...tasks].sort((a, b) => {
-              return new Date(a.date) - new Date(b.date); // Adjust according to your date format
+              return new Date(a.id) - new Date(b.id); // Adjust according to your date format
           });
       }
   
