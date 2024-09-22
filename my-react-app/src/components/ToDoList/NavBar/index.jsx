@@ -2,6 +2,8 @@ import './index.css'
 import save from '../../../backend/save.js';
 import { useState } from 'react'
 import { FaBars, FaTimes } from 'react-icons/fa'
+import Sort from './sort.jsx';
+
 
 const NavBar = ({ user, tasks, setUser, navigate }) => {  
     const [isOpen, setIsOpen] = useState(false);
@@ -36,6 +38,7 @@ const NavBar = ({ user, tasks, setUser, navigate }) => {
                 <li><button onClick={handleSave}>Save</button></li>
                 <li><button onClick={handleExit}>Exit</button></li>
                 <li><button onClick={handleSaveExit}>Save and Exit</button></li>
+                <Sort />
               </ul>
             </div>
           )}
