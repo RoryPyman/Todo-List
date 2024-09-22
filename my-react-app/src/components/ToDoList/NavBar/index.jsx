@@ -23,7 +23,13 @@ const NavBar = ({ user, tasks, setUser, setTasks, navigate }) => {
         if (user) {
             save(tasks, user);
         }
-    };
+    }
+    const handleLogin = () => {
+        navigate('/login')
+    }
+    const handleRegister = () => {
+        navigate('/register')
+    }
 
     return (
         <div className='navbar'>
@@ -35,9 +41,14 @@ const NavBar = ({ user, tasks, setUser, setTasks, navigate }) => {
           {isOpen && (
             <div className="menu">
               <ul>
-                <li><button className='todo-button' onClick={handleSave}>Save</button></li>
+                {user && <div>
+                    <li><button className='todo-button' onClick={handleSave}>Save</button></li>
+                <li><button className='todo-button' onClick={handleSaveExit}>Save and Exit</button></li></div>
+                }
+                {!user && <div>
+                    <li><button className='todo-button' onClick={handleLogin}>Login</button></li>
+                    <li><button className='todo-button' onClick={handleRegister}>Register</button></li></div>}
                 <li><button className='todo-button' onClick={handleExit}>Exit</button></li>
-                <li><button className='todo-button' onClick={handleSaveExit}>Save and Exit</button></li>
                 <Sort 
                 tasks={tasks}
                 setTasks={setTasks}/>
