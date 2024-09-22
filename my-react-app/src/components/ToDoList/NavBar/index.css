@@ -6,3 +6,34 @@
     cursor: pointer; /* Changes the cursor to pointer when hovered */
     z-index: 10; /* Ensure it's on top of other elements */
 }
+
+.sort-button-inner {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background-color: #003f7f; /* Darker blue for more contrast */
+    color: white;
+    padding: 6px 6px; /* Smaller padding */
+    margin: 1px 0; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 0.8rem; /* Smaller font size */
+    width: 100px; /* Smaller width */
+}
+
+.sort-button-inner:hover {
+    background-color: #002a5c; /* Even darker on hover */
+}
+.sortmenu {
+    border: 2px solid #007bff; /* Blue border */
+    border-top: 0px;
+    margin-top: -3px;
+    border-radius: 4px; /* Optional: add some rounding to corners */
+    padding: 6px;
+}
+
+.sortmenu ul {
+    list-style: none;
+}

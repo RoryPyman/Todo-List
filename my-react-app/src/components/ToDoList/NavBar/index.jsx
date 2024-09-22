@@ -35,9 +35,9 @@ const NavBar = ({ user, tasks, setUser, navigate }) => {
           {isOpen && (
             <div className="menu">
               <ul>
-                <li><button onClick={handleSave}>Save</button></li>
-                <li><button onClick={handleExit}>Exit</button></li>
-                <li><button onClick={handleSaveExit}>Save and Exit</button></li>
+                <li><button className='todo-button' onClick={handleSave}>Save</button></li>
+                <li><button className='todo-button' onClick={handleExit}>Exit</button></li>
+                <li><button className='todo-button' onClick={handleSaveExit}>Save and Exit</button></li>
                 <Sort />
               </ul>
             </div>

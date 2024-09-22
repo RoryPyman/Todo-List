@@ -100,7 +100,7 @@ const TodoList = () => {
                     High
                 </label>
             </div>
-            <button onClick={() => addTask(importance)}>Add</button>
+            <button className='todo-button' onClick={() => addTask(importance)}>Add</button>
         </div>
     );
 };

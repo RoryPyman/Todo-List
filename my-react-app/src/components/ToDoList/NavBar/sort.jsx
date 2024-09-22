@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./index.css"
 
 const Sort = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -8,17 +9,17 @@ const Sort = () => {
     }
 
     const sortTasks = (order) => {
-
+      setIsOpen(false)
     }
 
     return (
     <div>
-        <button onClick={() => toggleMenu()}>Sort By</button>
+        <button className={`todo-button`} onClick={() => toggleMenu()}>Sort By</button>
         {isOpen && (
-            <div className="menu">
+            <div className="sortmenu">
               <ul>
-                <li><button onClick={sortTasks('importance')}>Importance</button></li>
-                <li><button onClick={sortTasks('date')}>Date Added</button></li>
+                <li><button className="sort-button-inner" onClick={() => sortTasks('importance')}>Importance</button></li>
+                <li><button className="sort-button-inner" onClick={() => sortTasks('date')}>Date Added</button></li>
               </ul>
             </div>
           )}
