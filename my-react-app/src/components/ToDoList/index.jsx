@@ -63,57 +63,65 @@ const TodoList = () => {
     }
 
     return (
-        <div className="todo-list">
-            {tasks.length > 0 ? (
-                tasks.map(task => (
-                    <TodoItem
-                        key={task.id}
-                        task={task}
-                        deleteTask={deleteTask}
-                        toggleCompleted={toggleCompleted}
-                    />
-                ))
-            ) : (
-                <p>No tasks available</p>
-            )}
-            <input className='textinput'
-                value={text}
-                onChange={e => setText(e.target.value)}
-                placeholder="Enter task text"
-            />
-            <div className="radioinput">
-                <label>
-                    <input
-                        type="radio"
-                        value="low"
-                        checked={importance === 'low'}
-                        onChange={e => setImportance(e.target.value)}
-                    />
-                    Low
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        value="med"
-                        checked={importance === 'med'}
-                        onChange={e => setImportance(e.target.value)}
-                    />
-                    Medium
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        value="high"
-                        checked={importance === 'high'}
-                        onChange={e => setImportance(e.target.value)}
-                    />
-                    High
-                </label>
+        <div className="todo-container">
+            <div className="todo-form">
+                <h2 className='add-form-heading'>Add an item to your list</h2>
+                <input
+                    className='text-input'
+                    value={text}
+                    onChange={e => setText(e.target.value)}
+                    placeholder="Enter task text"
+                />
+                <div className="radio-input">
+                    <label>
+                        <input
+                            type="radio"
+                            value="low"
+                            checked={importance === 'low'}
+                            onChange={e => setImportance(e.target.value)}
+                        />
+                        Low
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            value="med"
+                            checked={importance === 'med'}
+                            onChange={e => setImportance(e.target.value)}
+                        />
+                        Medium
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            value="high"
+                            checked={importance === 'high'}
+                            onChange={e => setImportance(e.target.value)}
+                        />
+                        High
+                    </label>
+                </div>
+                <button onClick={() => addTask(importance)}>Add</button>
             </div>
-            <button onClick={() => addTask(importance)}>Add</button>
-            <button onClick={handleSave}>Save</button>
-            <button onClick={handleExit}>Exit</button>
-            <button onClick={handleSaveExit}>Save and Exit</button>
+            <div className="todo-actions">
+                <button onClick={handleSave}>Save</button>
+                <button onClick={handleExit}>Exit</button>
+                <button onClick={handleSaveExit}>Save and Exit</button>
+            </div>
+            <div className="todo-items-grid">
+                {tasks.length > 0 ? (
+                    tasks.map(task => (
+                        <TodoItem
+                            key={task.id}
+                            task={task}
+                            deleteTask={deleteTask}
+                            toggleCompleted={toggleCompleted}
+                        />
+                    ))
+                ) : (
+                    <p>No tasks available</p>
+                )}
+            </div>
         </div>
     );
 };
