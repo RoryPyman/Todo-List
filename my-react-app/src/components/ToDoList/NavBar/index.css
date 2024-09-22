@@ -1,0 +1,8 @@
+.navbar {
+    position: absolute; /* Absolute positioning relative to .todo-list */
+    top: 10px; /* Position it at the top */
+    left: 10px; /* Position it on the left */
+    font-size: 24px; /* Set the size of the hamburger icon */
+    cursor: pointer; /* Changes the cursor to pointer when hovered */
+    z-index: 10; /* Ensure it's on top of other elements */
+}

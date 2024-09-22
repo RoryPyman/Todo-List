@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import TodoItem from '../ToDoItem/index.jsx';
-import save from '../../backend/save.js';
 import load from '../../backend/load.js';
+import NavBar from './NavBar/index.jsx';
 import './index.css';
 
 const TodoList = () => {
@@ -46,24 +46,14 @@ const TodoList = () => {
         )); // Functional update
     };
 
-    const handleSave = () => {
-        if (user) {
-            save(tasks, user);
-        }
-    };
-
-    const handleExit = () => {
-        setUser('')
-        navigate('/')
-    }
-
-    const handleSaveExit = () => {
-        handleSave()
-        handleExit()
-    }
-
     return (
         <div className="todo-list">
+            <NavBar 
+            user={user} 
+            tasks={tasks} 
+            setUser={setUser} 
+            setTasks={setTasks} 
+            navigate={navigate}/>
             {tasks.length > 0 ? (
                 tasks.map(task => (
                     <TodoItem
@@ -111,9 +101,6 @@ const TodoList = () => {
                 </label>
             </div>
             <button onClick={() => addTask(importance)}>Add</button>
-            <button onClick={handleSave}>Save</button>
-            <button onClick={handleExit}>Exit</button>
-            <button onClick={handleSaveExit}>Save and Exit</button>
         </div>
     );
 };
