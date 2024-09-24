@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
-import { userInDatabase } from '../../backend/register'
+import { errorMessages } from '../../assets/errors';
 import { auth } from '../../../public/configuration'
 import { createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import './index.css'
@@ -9,15 +9,16 @@ const Register = () => {
     const navigate = useNavigate();
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
 
     const handleRegister = async (e) => {
+        setError("");
         e.preventDefault(); // Prevent default form submission
         createUserWithEmailAndPassword(auth, email, password)
         .then( userCredentials => {
-            console.log("Succesfully registered: ", userCredentials.user.uid)
             navigate('/list', { state: { user: userCredentials.user.uid } });
         }).catch( e => {
-            console.log(e)
+            setError(errorMessages[e.code])
         })
     }
 
@@ -40,6 +41,9 @@ const Register = () => {
             />
             <br />
             <button onClick={handleRegister}>Register</button> {/* Use handleClick here */}
+            <div className='errorMessage'>
+                <label className='error'>{error}</label>
+            </div>
         </div>
     );
 }

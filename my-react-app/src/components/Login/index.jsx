@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import checkpassword from '../../backend/checkpassword';
 import './index.css';
+import { errorMessages } from '../../assets/errors';
 import { auth } from '../../../public/configuration'
 import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const Login = () => {
     const [user, setUser] = useState('');
     const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const navigate = useNavigate(); // Move useNavigate here
 
     const handleClick = async (e) => {
@@ -17,7 +18,7 @@ const Login = () => {
         .then( userCredentials => {
             navigate('/list', { state: { user: userCredentials.user.uid } });
         }).catch( e => {
-            console.log(e.message)
+            setError(errorMessages[e.code])
         })
     };
 
@@ -40,6 +41,9 @@ const Login = () => {
                 />
                 <button type="submit" onClick={handleClick}>Login</button> {/* Use handleClick here */}
             </form>
+            <div className='errorMessage'>
+                <label className='error'>{error}</label>
+            </div>
         </div>
     );
 };
