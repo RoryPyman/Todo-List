@@ -1,44 +1,25 @@
-import { getDatabase, ref, set, push, get } from 'firebase/database'
+import { getDatabase, ref, get } from 'firebase/database'
 
 import cong from '../../public/configuration.jsx';
 
-
-const register = async (user, password) => {
+export const userInDatabase = async (user) => {
     const db = getDatabase(cong)
+    const dbgetref = ref(db, 'Users/');
+    const snapshot = await get(dbgetref);
+    console.log("HI")
 
-    const userInDatabase = async () => {
-        const dbgetref = ref(db, 'Users/');
-        const snapshot = await get(dbgetref);
+    if (snapshot.exists()) {
+        const users = snapshot.val();
+        console.log(users)
 
-        if (snapshot.exists()) {
-            const users = snapshot.val();
-
-            // Iterate through the user data to check for existing username
-            for (const key in users) {
-                if (key === user) {
-                    return true;  // User already exists
-                }
+        // Iterate through the user data to check for existing username
+        for (const key in users) {
+            console.log(key)
+            if (key === user) {
+                return true;  // User already exists
             }
         }
-        return false;  // User not found
-    };
-    console.log("2")
-    if (await userInDatabase()) {
-        return false
     }
-    const dbpushref = push(ref(db, 'Users/'+user))
-    return set(dbpushref, {
-        Password: password
-    }).then( () => {
-        console.log("3")
-        return true 
-    }
-    ).catch( (e) => { 
-        console.log(e.message)
-        return false
-    }
-    )
-
-}
-
-export default register
+    console.log("hello")
+    return false;  // User not found
+};

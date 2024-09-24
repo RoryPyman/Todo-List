@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import checkpassword from '../../backend/checkpassword';
 import './index.css';
+import { auth } from '../../../public/configuration'
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 const Login = () => {
     const [user, setUser] = useState('');
@@ -10,32 +12,34 @@ const Login = () => {
 
     const handleClick = async (e) => {
         e.preventDefault(); // Prevent default form submission
-        const isValid = await checkpassword(user, password);
 
-        if (!isValid) {
-            alert('Username and password do not match, please try again.');
-        } else {
-            navigate('/list', {state: {user}}); // Navigate to the route
-        }
+        signInWithEmailAndPassword(auth, user, password)
+        .then( userCredentials => {
+            navigate('/list', { state: { user: userCredentials.user.uid } });
+        }).catch( e => {
+            console.log(e.message)
+        })
     };
 
     return (
         <div className='login-container'>
-            <label>Username:</label>
-            <input
-                type='text'
-                className='username-field'
-                value={user}
-                onChange={e => setUser(e.target.value)}
-            />
-            <label>Password:</label>
-            <input
-                type='password'
-                className='password-field'
-                value={password}
-                onChange={e => setPassword(e.target.value)}
-            />
-            <button onClick={handleClick}>Login</button> {/* Use handleClick here */}
+            <form onSubmit={handleClick}>
+                <label>Email:</label>
+                <input
+                    type='text'
+                    className='username-field'
+                    value={user}
+                    onChange={e => setUser(e.target.value)}
+                />
+                <label>Password:</label>
+                <input
+                    type='password'
+                    className='password-field'
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                />
+                <button type="submit" onClick={handleClick}>Login</button> {/* Use handleClick here */}
+            </form>
         </div>
     );
 };

@@ -1,6 +1,9 @@
 import { getDatabase, ref, get } from 'firebase/database'
+import { auth } from '../../public/configuration.jsx'
+import { onAuthStateChanged } from 'firebase/auth';
 
 import cong from '../../public/configuration.jsx';
+import { useEffect } from 'react';
 
 const checkpassword = async (user, password) => {
     const db = getDatabase(cong)
@@ -12,5 +15,6 @@ const checkpassword = async (user, password) => {
     }
     return false
 }
+
 
 export default checkpassword
