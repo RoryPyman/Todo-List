@@ -23,7 +23,7 @@ const Register = () => {
     }
 
     return (
-    <div className='registerDiv'>
+    <form className='registerDiv' onSubmit={handleRegister}>
         <h3>Register</h3>
             <label>Email:</label>
             <input
@@ -41,11 +41,11 @@ const Register = () => {
                 onChange={e => setPassword(e.target.value)}
             />
             <br />
-            <button onClick={handleRegister}>Register</button> {/* Use handleClick here */}
-            <div className='errorMessage'>
-                <label className='error'>{error}</label>
+            <button type='submit'>Register</button> {/* Use handleClick here */}
+            <div className='error-div'>
+                <label className='error-message'>{error}</label>
             </div>
-        </div>
+        </form>
     );
 }
 

@@ -23,9 +23,8 @@ const Login = () => {
     };
 
     return (
-        <div className='login-container'>
+        <form className='login-container'onSubmit={handleClick}>
             <h3>Login</h3>
-            <form onSubmit={handleClick}>
                 <label>Email:</label>
                 <input
                     type='text'
@@ -40,12 +39,11 @@ const Login = () => {
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                 />
-                <button type="submit" onClick={handleClick}>Login</button> {/* Use handleClick here */}
-            </form>
-            <div className='errorMessage'>
-                <label className='error'>{error}</label>
+                <button type="submit">Login</button> {/* Use handleClick here */}
+            <div className='error-div'>
+                <label className='error-message'>{error}</label>
             </div>
-        </div>
+        </form>
     );
 };
 
