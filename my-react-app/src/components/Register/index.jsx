@@ -23,6 +23,7 @@ const Register = () => {
     const [password, setPassword] = useState("")
     return (
     <div className='registerDiv'>
+        <h3>Register</h3>
             <label>Username:</label>
             <input
                 type='text'
