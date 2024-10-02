@@ -24,6 +24,7 @@ const Register = () => {
 
     return (
     <div className='registerDiv'>
+        <h3>Register</h3>
             <label>Email:</label>
             <input
                 type='text'

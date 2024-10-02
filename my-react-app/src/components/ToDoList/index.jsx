@@ -48,59 +48,67 @@ const TodoList = () => {
 
     return (
         <div className="todo-list">
-            <NavBar 
-            user={user} 
-            tasks={tasks} 
-            setUser={setUser} 
-            setTasks={setTasks} 
-            navigate={navigate}/>
-            {tasks.length > 0 ? (
-                tasks.map(task => (
-                    <TodoItem
-                        key={task.id}
-                        task={task}
-                        deleteTask={deleteTask}
-                        toggleCompleted={toggleCompleted}
-                    />
-                ))
-            ) : (
-                <p>No tasks available</p>
-            )}
-            <input className='textinput'
-                value={text}
-                onChange={e => setText(e.target.value)}
-                placeholder="Enter task text"
-            />
-            <div className="radioinput">
-                <label>
-                    <input
-                        type="radio"
-                        value="low"
-                        checked={importance === 'low'}
-                        onChange={e => setImportance(e.target.value)}
-                    />
-                    Low
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        value="med"
-                        checked={importance === 'med'}
-                        onChange={e => setImportance(e.target.value)}
-                    />
-                    Medium
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        value="high"
-                        checked={importance === 'high'}
-                        onChange={e => setImportance(e.target.value)}
-                    />
-                    High
-                </label>
+            <div className='navbar'>
+                <NavBar
+                user={user} 
+                tasks={tasks} 
+                setUser={setUser} 
+                setTasks={setTasks} 
+                navigate={navigate}/>
             </div>
-            <button className='todo-button' onClick={() => addTask(importance)}>Add</button>
+            <div className='todo-list-grid'>
+                <h3>Your Tasks</h3>
+                {tasks.length > 0 ? (
+                    tasks.map(task => (
+                        <TodoItem
+                            key={task.id}
+                            task={task}
+                            deleteTask={deleteTask}
+                            toggleCompleted={toggleCompleted}
+                        />
+                    ))
+                ) : (
+                    <p>No tasks available</p>
+                )} 
+            </div>
+            <div className='to-do-form'>
+                <h3>Add a task</h3>
+                <input className='textinput'
+                    value={text}
+                    onChange={e => setText(e.target.value)}
+                    placeholder="Enter task text"
+                />
+                <div className="radioinput">
+                    <label>
+                        <input
+                            type="radio"
+                            value="low"
+                            checked={importance === 'low'}
+                            onChange={e => setImportance(e.target.value)}
+                        />
+                        Low
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            value="med"
+                            checked={importance === 'med'}
+                            onChange={e => setImportance(e.target.value)}
+                        />
+                        Medium
+                    </label>
+                    <label>
+                        <input
+                            type="radio"
+                            value="high"
+                            checked={importance === 'high'}
+                            onChange={e => setImportance(e.target.value)}
+                        />
+                        High
+                    </label>
+                </div>
+                <button className='add-button' onClick={() => addTask(importance)}>Add</button>
+            </div>
         </div>
     );
 };
