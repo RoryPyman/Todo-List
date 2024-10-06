@@ -90,9 +90,21 @@ button:active {
     transform: translateY(0);
 }
 
-/* Error message */
-.error-message {
-    color: red;
+.error-div {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 91%;
     margin-top: 10px;
-    font-size: 0.9rem;
+}
+
+.error-message {
+    color: #ff4d4d;
+    font-weight: bold;
+    background-color: #ffe6e6;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ff4d4d;
+    display: inline-block;
+    align-content: center;
 }

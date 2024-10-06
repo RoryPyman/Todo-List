@@ -40,9 +40,12 @@ const Login = () => {
                     onChange={e => setPassword(e.target.value)}
                 />
                 <button type="submit">Login</button> {/* Use handleClick here */}
-            <div className='error-div'>
-                <label className='error-message'>{error}</label>
-            </div>
+            {/* Conditionally render the error div only when there's an error */}
+            {error && (
+                <div className='error-div'>
+                    <label className='error-message'>{error}</label>
+                </div>
+            )}
         </form>
     );
 };
