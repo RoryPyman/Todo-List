@@ -1,35 +1,36 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'
-import register from '../../backend/register'
+import { errorMessages } from '../../assets/errors';
+import { auth } from '../../../public/configuration'
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import './index.css'
 
 const Register = () => {
     const navigate = useNavigate();
-    const handleRegister = async () => {
-        if (user == "" || password == "") {
-            alert("Username and Password fields must not be empty.")
-            return
-        }
-        const res = await register(user, password)
-        if (res) {
-            navigate('/list', {state: {user}});
-        }
-        else {
-            alert("Creating an account failed, Please try again")
-        }
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [error, setError] = useState("")
+
+    const handleRegister = async (e) => {
+        setError("");
+        e.preventDefault(); // Prevent default form submission
+        createUserWithEmailAndPassword(auth, email, password)
+        .then( userCredentials => {
+            navigate('/list', { state: { user: userCredentials.user.uid } });
+        }).catch( e => {
+            setError(errorMessages[e.code])
+        })
     }
 
-    const [user, setUser] = useState("")
-    const [password, setPassword] = useState("")
     return (
-    <div className='registerDiv'>
+    <form className='registerDiv' onSubmit={handleRegister}>
         <h3>Register</h3>
-            <label>Username:</label>
+            <label>Email:</label>
             <input
                 type='text'
                 className='username-field'
-                value={user}
-                onChange={e => setUser(e.target.value)}
+                value={email}
+                onChange={e => setEmail(e.target.value)}
             />
             <br />
             <label>Password:</label>
@@ -40,8 +41,11 @@ const Register = () => {
                 onChange={e => setPassword(e.target.value)}
             />
             <br />
-            <button onClick={() => handleRegister()}>Register</button> {/* Use handleClick here */}
-        </div>
+            <button type='submit'>Register</button> {/* Use handleClick here */}
+            <div className='error-div'>
+                <label className='error-message'>{error}</label>
+            </div>
+        </form>
     );
 }
 

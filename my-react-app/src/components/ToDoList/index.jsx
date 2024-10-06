@@ -22,7 +22,7 @@ const TodoList = () => {
             .then(arr => setTasks(arr))
             .catch(e => console.error(e.message));
         }
-    }, [location.state]); // Dependency on location.state
+    }, [location.state]);
 
     const addTask = (importance) => {
         const newTask = {
