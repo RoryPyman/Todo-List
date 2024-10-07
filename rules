@@ -1,0 +1,13 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        // Rules for the tasks collection within each user's document
+        "tasks": {
+          ".read": "auth != null && auth.uid === $uid",  // Only allow the user to read their own tasks
+          ".write": "auth != null && auth.uid === $uid"  // Only allow the user to write to their own tasks
+        }
+      }
+    }
+  }
+}
